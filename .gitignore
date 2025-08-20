@@ -46,7 +46,6 @@ _ReSharper*/
 
 ## Ignore IIS Express settings
 /.vs/
-*.config
 
 ## Ignore Rider IDE files
 .idea/
