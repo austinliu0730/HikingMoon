@@ -1,0 +1,279 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+}
+
+
+@model GoHiking.data.MountainTrail
+
+
+
+@section MyCSS{
+    <link href="~/css/mycss/product.css?v=@DateTime.Now.Ticks" rel="stylesheet" />
+}
+<div class="product-page-container">
+    <aside class="sidebar d-none d-lg-block">
+        <h3 class="sidebar-title">活動總覽</h3>
+        <p class="sidebar-subtitle">ACTIVITY</p>
+        <ul class="activity-list">
+            <li><a href="#">所有活動</a></li>
+            <li class="active"><a href="#">單日行程｜山林體驗</a></li>
+            <li><a href="#">兩日行程｜深入荒野</a></li>
+            <li><a href="#">三日行程｜拾回自然</a></li>
+            <li><a href="#">四日以上｜浪漫忘返</a></li>
+            <li><a href="#">訓練課程 x 講座</a></li>
+            <li><a href="#">攀岩、溯溪、體驗</a></li>
+            <li><a href="#">海外活動</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="product-container">
+            <div class="product-header">
+                <h1 class="product-title">@Model.mt_name</h1>
+                <div class="product-meta">
+                    <span>
+                        <span class="meta-icon">📅</span>
+                        集合時間：09/12 (五) 下午 08:00
+                    </span>
+                    <span>
+                        <span class="meta-icon">📍</span>
+                        集合地點：南投縣仁愛鄉
+                    </span>
+                    <span>
+                        <span class="meta-icon">⭐</span>
+                        難易度：
+                    </span>
+                    <div class="difficulty-stars">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <span class="star @(i <= Model.diff ? "" : "inactive")">@(i <= Model.diff ? "●" : "○")</span>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div id="top-booking-section" class="booking-section">
+                <div class="price-container">
+                    <div class="price">
+                        NT$3,880 <span class="person">/人</span>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button class="cta-button primary">我要報名</button>
+                    @Html.ActionLink("我要開團", "Create", "Products", new { id = Model.ID }, new { @class = "cta-button secondary" })
+                </div>
+            </div>
+        </div>
+
+        <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=1840" alt="@Model.mt_name 風景" class="product-image">
+
+        <div class="product-full-details">
+            <section class="detail-section">
+                <h3 class="section-title">簡易行程</h3>
+                <div class="timeline">
+                    @if (!string.IsNullOrEmpty(Model.TripSchedule))
+                    {
+                        <p>@Html.Raw(Model.TripSchedule.Replace("\n", "<br/>"))</p>
+                    }
+                    else
+                    {
+                        <p>行程詳情請洽詢客服</p>
+                    }
+                </div>
+                <p class="section-note">實際行程需視天候、天氣、團員狀況及嚮導判斷而定。</p>
+                <div class="info-box-blue">
+                    歡迎私訊 LINE 客服選擇自己有空的時間開團，公司會協助湊團。<br>
+                    不限人數均可「包團」參加，7人包團為官網價格，不足7人將另外提供報價。
+                </div>
+            </section>
+
+            <hr />
+
+            <section class="detail-section">
+                <h3 class="section-title">基本資訊</h3>
+
+                <!-- 主要數據統計 -->
+                <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-5 text-center border-bottom pb-3 mb-4 g-3">
+                    <div class="col">
+                        <p class="text-muted mb-0">總距離</p>
+                        <strong class="fs-2 fw-bold">@Model.dist_km</strong><small class="fs-6 align-baseline">km</small>
+                    </div>
+                    <div class="col">
+                        <p class="text-muted mb-0">總時間</p>
+                        @{
+                            int hours = Model.time_min / 60;
+                            int minutes = Model.time_min % 60;
+                        }
+                        <strong class="fs-2 fw-bold">@hours<small class="fs-6 align-baseline"> h</small> @minutes<small class="fs-6 align-baseline">m</small></strong>
+                    </div>
+                    <div class="col">
+                        <p class="text-muted mb-0">總爬升高度</p>
+                        <strong class="fs-2 fw-bold">@Model.ascend_m</strong><small class="fs-6 align-baseline">m</small>
+                    </div>
+                    <div class="col">
+                        <p class="text-muted mb-0">總下降高度</p>
+                        <strong class="fs-2 fw-bold">@Model.descend_m</strong><small class="fs-6 align-baseline">m</small>
+                    </div>
+                    <div class="col">
+                        <p class="text-muted mb-0">活動天數</p>
+                        <strong class="fs-2 fw-bold">@Model.walk_days</strong><small class="fs-6 align-baseline">日</small>
+                    </div>
+                </div>
+
+                <!-- 描述文字 -->
+                <p class="my-4">@Model.TripDetails</p>
+                <hr />
+
+                <!-- 其他詳細資料 -->
+                <div class="details-container">
+                    <!-- 雙欄項目 -->
+                    <div class="detail-row">
+                        <div class="row g-0">
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <dl class="row mb-0 w-100">
+                                        <dt class="detail-label col-5">地形路況</dt>
+                                        <dd class="detail-value col-7">@Model.trail_cond</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <dl class="row mb-0 w-100">
+                                        <dt class="detail-label col-5">型態</dt>
+                                        <dd class="detail-value col-7">@Model.route_type</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="row g-0">
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <dl class="row mb-0 w-100">
+                                        <dt class="detail-label col-5">最高海拔</dt>
+                                        <dd class="detail-value col-7">@Model.max_alt_m m</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <dl class="row mb-0 w-100">
+                                        <dt class="detail-label col-5">最低海拔</dt>
+                                        <dd class="detail-value col-7">@Model.min_alt_m m</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="row g-0">
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <dl class="row mb-0 w-100">
+                                        <dt class="detail-label col-5">高度落差</dt>
+                                        <dd class="detail-value col-7">@(Model.max_alt_m - Model.min_alt_m) m</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <dl class="row mb-0 w-100">
+                                        <dt class="detail-label col-5">所屬山系</dt>
+                                        <dd class="detail-value col-7">@Model.mt_range</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="row g-0">
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <dl class="row mb-0 w-100">
+                                        <dt class="detail-label col-5">入園證 & 入山證</dt>
+                                        <dd class="detail-value col-7">
+                                            @if (Model.park_permit == 1 && Model.mt_permit == 1)
+                                            {
+                                                @:需入園證，需入山證
+                                            }
+                                            else if (Model.park_permit == 1)
+                                            {
+                                                @:需入園證，不需入山證
+                                            }
+                                            else if (Model.mt_permit == 1)
+                                            {
+                                                @:不需入園證，需入山證
+                                            }
+                                            else
+                                            {
+                                                @:不需入園證，不需入山證
+                                            }
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 更新時間 -->
+                    <div class="update-time">
+                        <small class="text-muted">更新時間 2025年7月31日</small>
+                    </div>
+                </div>
+            </section>
+
+            <hr />
+
+            <section class="detail-section">
+                <h3 class="section-title">費用包含</h3>
+                <ul class="detail-list">
+                    <li>接駁車：新竹高鐵至登山口來回</li>
+                    <li>住宿費：@Model.location 民宿</li>
+                    <li>嚮導費</li>
+                    <li>300萬登山事故險</li>
+                    <li>90分鐘登山行前課程影片</li>
+                </ul>
+            </section>
+
+            <hr />
+
+
+            <section class="detail-section">
+                <h3 class="section-title">注意事項</h3>
+                <ul class="detail-list">
+                    <li>請先詳閱<a href="#" class="action-link">活動服務條款</a>，報名即表示同意該條款。</li>
+                    <li>本活動 <span style="color: #e74c3c; font-weight: bold;">7 人成團</span>，達成團人數後即確認成團，最遲於活動日前 7 日確認是否成團。</li>
+                    <li>活動裝備表將於活動成團信中附上，若需提早檢視，可私訊 LINE 客服詢問。</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+</div>
+@section MyJS{
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.js"
+            integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc="
+            crossorigin="anonymous"></script>
+    <script>
+        $(() => {
+            $('.activity-list a').hover(function () {
+                $('.activity-list li').removeClass('active');
+
+                $(this).parent('li').addClass('active');
+            });
+        });
+    </script>
+
+}
+
+
+
+@section HeroSection {
+    <div class="img-bg rellax ">
+        <img src="/images/hero_1.jpg" alt="Image" class="img-fluid">
+    </div>
+}

@@ -1,0 +1,156 @@
+﻿@model GoHiking.ViewModels.TripGroupViewModel
+@{
+    ViewBag.Title = "開團 - " + ViewBag.MountainTrail.mt_name;
+    var mountain = ViewBag.MountainTrail as GoHiking.data.MountainTrail;
+}
+
+
+@section MyCSS{
+    <link href="~/css/mycss/product.css?v=@DateTime.Now.Ticks" rel="stylesheet" />
+}
+
+<div class="create-container">
+    @using (Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.mt_id)
+        @Html.HiddenFor(model => model.user_id)
+
+        <div class="form-header">
+            <h2>建立新團 - @mountain.mt_name</h2>
+            <div class="mountain-info">
+                <strong>山徑資訊：</strong>
+                難度 @mountain.diff 顆星 |
+                距離 @mountain.dist_km km |
+                預估時間 @(mountain.time_min/60)小時@(mountain.time_min%60)分 |
+                最高海拔 @mountain.max_alt_m m
+            </div>
+        </div>
+
+        <!-- 基本資訊區塊 -->
+        <div class="form-section">
+            <h3>基本資訊</h3>
+
+            <div class="form-group">
+                <label>團名稱 <span class="required">*</span></label>
+                @Html.TextBoxFor(model => model.group_name, new { @class = "form-control", placeholder = "例如：春季輕鬆行、攝影愛好團" })
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label>活動日期 <span class="required">*</span></label>
+                        @Html.TextBoxFor(model => model.activity_date, new { @class = "form-control", @type = "date" })
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label>集合時間 <span class="required">*</span></label>
+                        @Html.TextBoxFor(model => model.meeting_time, new { @class = "form-control", placeholder = "例如：早上 07:00" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>集合地點 <span class="required">*</span></label>
+                @Html.TextBoxFor(model => model.meeting_location, new { @class = "form-control", placeholder = "例如：台北車站東三門" })
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label>人數上限</label>
+                        @Html.TextBoxFor(model => model.max_participants, new { @class = "form-control", @type = "number", min = "1", max = "50" })
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label>團費 (NT$) <span class="required">*</span></label>
+                        @Html.TextBoxFor(model => model.price, new { @class = "form-control", @type = "number", min = "0" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 行程資訊區塊 -->
+        <div class="form-section">
+            <h3>行程資訊</h3>
+
+            <div class="form-group">
+                <label>簡易行程 <span class="required">*</span></label>
+                @Html.TextAreaFor(model => model.custom_schedule, new { @class = "form-control", rows = 10 })
+                <small class="text-muted">可以編輯上方預設的行程內容</small>
+            </div>
+
+            <div class="form-group">
+                <label>團長的話（選填）</label>
+                @Html.TextAreaFor(model => model.leader_message, new { @class = "form-control", rows = 5, placeholder = "向團員介紹自己、說明行程特色或注意事項..." })
+            </div>
+        </div>
+
+        <!-- 費用包含區塊 -->
+        <div class="form-section">
+            <h3>費用包含項目</h3>
+
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    @Html.CheckBox("include_transport", Model.include_transport)
+                    <label for="include_transport">接駁車</label>
+                </div>
+                <div class="checkbox-item">
+                    @Html.CheckBox("include_accommodation", Model.include_accommodation)
+                    <label for="include_accommodation">住宿</label>
+                </div>
+                <div class="checkbox-item">
+                    @Html.CheckBox("include_guide", Model.include_guide)
+                    <label for="include_guide">嚮導費</label>
+                </div>
+                <div class="checkbox-item">
+                    @Html.CheckBox("include_insurance", Model.include_insurance)
+                    <label for="include_insurance">保險</label>
+                </div>
+                <div class="checkbox-item">
+                    @Html.CheckBox("include_course", Model.include_course)
+                    <label for="include_course">行前課程</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 照片上傳區塊 -->
+        <div class="form-section">
+            <h3>活動照片（選填）</h3>
+
+            <div class="image-upload-area">
+                <p>📷 拖曳照片到此處或點擊上傳</p>
+                <input type="file" name="images" multiple accept="image/*" />
+                <small class="text-muted">最多3張照片，每張最大2MB，支援 JPG、PNG 格式</small>
+            </div>
+        </div>
+
+        <!-- 按鈕區 -->
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary">建立團</button>
+            @Html.ActionLink("取消", "Details", new { id = mountain.ID }, new { @class = "btn btn-secondary" })
+        </div>
+    }
+</div>
+
+@section MyJS {
+    <script>
+        // 設定日期最小值為今天
+        document.addEventListener('DOMContentLoaded', function () {
+            var dateInput = document.querySelector('input[type="date"]');
+            if (dateInput) {
+                var today = new Date().toISOString().split('T')[0];
+                dateInput.setAttribute('min', today);
+            }
+        });
+    </script>
+}
+
+
+@section HeroSection {
+    <div class="img-bg rellax ">
+        <img src="/images/hero_1.jpg" alt="Image" class="img-fluid">
+    </div>
+}

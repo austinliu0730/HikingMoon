@@ -1,0 +1,232 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@model IEnumerable<GoHiking.data.MountainTrail>
+
+@*<div class="hero-content" style="text-align: center; color: white; text-shadow: 0px 2px 4px rgba(0,0,0,0.6);">
+        <h1>@ViewData["PageTitle"]</h1>
+        <p class="subtitle">@ViewData["PageSubtitle"]</p>
+        <hr style="width: 80px; margin: 24px auto; border-color: rgba(255,255,255,0.8);">
+        <div class="breadcrumbs">
+            <a href="/Home/Index" style="color: white; text-decoration: none;">首頁</a> &gt;
+            <a href="/Activity/List" style="color: white; text-decoration: none;">活動總覽</a> &gt;
+            <a href="/Activity/Category/1" style="color: white; text-decoration: none;">單日行程｜山林輕旅</a> &gt;
+            <span style="color: #ddd;">霞喀羅古道｜一天一夜｜平步野營</span>
+        </div>
+    </div>*@
+
+
+
+
+
+<div class="product-page-container">
+    <aside class="sidebar d-none d-lg-block">
+        <h3 class="sidebar-title">活動總覽</h3>
+        <p class="sidebar-subtitle">ACTIVITY</p>
+        <ul class="activity-list">
+            <li><a href="#">所有活動</a></li>
+            <li class="active"><a href="#">單日行程｜山林體驗</a></li>
+            <li><a href="#">兩日行程｜深入荒野</a></li>
+            <li><a href="#">三日行程｜拾回自然</a></li>
+            <li><a href="#">四日以上｜浪漫忘返</a></li>
+            <li><a href="#">訓練課程 x 講座</a></li>
+            <li><a href="#">攀岩、溯溪、體驗</a></li>
+            <li><a href="#">海外活動</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <h1 class="product-title">霞喀羅古道 | 一天一夜 | 平步野營</h1>
+        <div class="product-meta">
+            <span>集合時間：09/12 (五) 下午 08:00</span>
+            <span>集合地點：高鐵新竹站</span>
+            <span>難易度：●●○○○</span>
+        </div>
+
+        <div id="top-booking-section" class="booking-section">
+            <div class="price">
+                NT$3,880 <span class="person">/人</span>
+            </div>
+            <button class="cta-button">我要報名</button>
+            <button class="cta-button">我要開團</button>
+        </div>
+
+        <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=1840" alt="霞喀羅古道風景" class="product-image">
+
+        <div class="product-full-details">
+            <section class="detail-section">
+                <h2 class="section-title">簡易行程</h2>
+                <div class="timeline">
+                    <p><strong>DAY0：</strong><br>20:00 新竹高鐵站<br>21:30 五峰鄉民宿</p>
+                    <p><strong>DAY1：</strong><br>06:00 五峰鄉民宿<br>07:00 石鹿登山口<br>07:30 田村台駐在所<br>09:50 楢山駐在所遺址<br>11:10 水源地<br>12:00 霞喀羅吊橋<br>12:40 白石駐在所<br>13:25 白石吊橋<br>13:50 武神駐在所<br>14:40 馬鞍駐在所遺址<br>15:10 栗園駐在所遺址<br>16:40 養老登山口<br>19:30 新竹高鐵站</p>
+                </div>
+                <p class="section-note">實際行程需視天候、天氣、團員狀況及嚮導判斷而定。</p>
+                <div class="info-box-blue">
+                    歡迎私訊 LINE 客服選擇自己有空的時間開團，公司會協助湊團。<br>
+                    不限人數均可「包團」參加，7人包團為官網價格，不足7人將另外提供報價。
+                </div>
+            </section>
+
+            <hr />
+
+            <section class="detail-section">
+                <h2 class="section-title">基本資訊</h2>
+
+                <!-- 主要數據統計 -->
+                <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-5 text-center border-bottom pb-3 mb-4 g-3">
+                    <div class="col">
+                        <p class="text-muted mb-0">總距離</p>
+                        <strong class="fs-2 fw-bold">23.2</strong><small class="fs-6 align-baseline">km</small>
+                    </div>
+                    <div class="col">
+                        <p class="text-muted mb-0">總時間</p>
+                        <strong class="fs-2 fw-bold">8<small class="fs-6 align-baseline">h</small> 38<small class="fs-6 align-baseline">m</small></strong>
+                    </div>
+                    <div class="col">
+                        <p class="text-muted mb-0">總爬升高度</p>
+                        <strong class="fs-2 fw-bold">1,173</strong><small class="fs-6 align-baseline">m</small>
+                    </div>
+                    <div class="col">
+                        <p class="text-muted mb-0">總下降高度</p>
+                        <strong class="fs-2 fw-bold">1,233</strong><small class="fs-6 align-baseline">m</small>
+                    </div>
+                    <div class="col">
+                        <p class="text-muted mb-0">活動天數</p>
+                        <strong class="fs-2 fw-bold">2</strong><small class="fs-6 align-baseline">日</small>
+                    </div>
+                </div>
+
+                <!-- 描述文字 -->
+                <p class="my-4">Syakaro霞喀羅為泰雅族語的烏心石，因山區盛產此樹而得名。古道橫跨新竹縣五峰鄉、尖石鄉，是早期當地部落的聯外交通要道。霞喀羅國家步道是一處具歷史與美景的夢幻級古道，沿線可看見日治時期，日人為討伐尖石、五峰一帶部落修築之駐在所、電線杆、碉堡、紀念碑、土牆及砲台遺址，步行其間，在解說牌的介紹之下，可以了解這一條有著可歌可泣的歷史古道背後的許多故事。沿途景觀秀麗，吊橋、山澗林相美不勝收，栗園的竹林與馬鞍的楓香林，尤其迷人，讓人忍不住駐足流連。而步道有多處絕佳的賞楓點，入秋時可見滿山火紅的楓樹林，是知名的賞楓景點。(資料來源：台灣山林悠遊網) </p>
+                <hr />
+
+                <!-- 其他詳細資料 -->
+
+                <div class="details-container">
+                    <!-- 雙欄項目 -->
+                    <div class="detail-row">
+                        <div class="row g-0">
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <dl class="row mb-0 w-100">
+                                        <dt class="detail-label col-5">地形路況</dt>
+                                        <dd class="detail-value col-7">原始山徑</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <dl class="row mb-0 w-100">
+                                        <dt class="detail-label col-5">型態</dt>
+                                        <dd class="detail-value col-7">線型雙向</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="row g-0">
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <dl class="row mb-0 w-100">
+                                        <dt class="detail-label col-5">最高海拔</dt>
+                                        <dd class="detail-value col-7">1,670 m</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <dl class="row mb-0 w-100">
+                                        <dt class="detail-label col-5">最低海拔</dt>
+                                        <dd class="detail-value col-7">1,273 m</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="row g-0">
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <dl class="row mb-0 w-100">
+                                        <dt class="detail-label col-5">高度落差</dt>
+                                        <dd class="detail-value col-7">397 m</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <dl class="row mb-0 w-100">
+                                        <dt class="detail-label col-5">所屬山系</dt>
+                                        <dd class="detail-value col-7">雪山山脈</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="row g-0">
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <dl class="row mb-0 w-100">
+                                        <dt class="detail-label col-5">入園證 & 入山證</dt>
+                                        <dd class="detail-value col-7">不需入園證，不需入山證</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 更新時間 -->
+                    <div class="update-time">
+                        <small class="text-muted">更新時間 2025年7月31日</small>
+                    </div>
+                </div>
+            </section>
+
+            <hr />
+
+            <section class="detail-section">
+                <h3 class="sub-section-title">費用包含：</h3>
+                <ul class="detail-list">
+                    <li>接駁車：新竹高鐵至登山口來回</li>
+                    <li>住宿費：五峰鄉民宿</li>
+                    <li>嚮導費</li>
+                    <li>300萬登山事故險</li>
+                    <li>90分鐘登山行前課程影片</li>
+                </ul>
+            </section>
+
+            <hr />
+
+            <section class="detail-section">
+                <h2 class="section-title">注意事項</h2>
+                <ul class="detail-list">
+                    <li>請先詳閱<a href="#" class="action-link">活動服務條款</a>，報名即表示同意該條款。</li>
+                    <li>本活動 7 人成團，達成團人數後即確認成團，最遲於活動日前 7 日確認是否成團。</li>
+                    <li>活動裝備表將於活動成團信中附上，若需提早檢視，可私訊 LINE 客服詢問。</li>
+                </ul>
+            </section>
+
+
+        </div>
+    </main>
+</div>
+
+
+
+@section MyCSS{
+    <link href="~/css/mycss/product.css" rel="stylesheet" />
+
+}
+
+
+@section HeroSection {
+    <div class="img-bg rellax ">
+        <img src="/images/hero_1.jpg" alt="Image" class="img-fluid">
+    </div>
+}
+
