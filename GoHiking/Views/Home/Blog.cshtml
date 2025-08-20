@@ -1,4 +1,5 @@
-﻿
+﻿@model List<GoHiking.data.MountainTrail>
+
 @{
     ViewBag.Title = "Blog";
 }
@@ -21,183 +22,84 @@
             <li><a href="#">攀岩、溯溪、體驗</a></li>
             <li><a href="#">海外活動</a></li>
         </ul>
+
+        <div class="filter-section">
+            <h4>篩選條件</h4>
+            <div class="filter-options">
+                <div>
+                    <label>
+                        <input type="checkbox" id="upcoming" value="upcoming"> 即將開團
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" id="price-priority" value="price"> 費用優先
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" id="duration" value="duration"> 爬山天數
+                    </label>
+                </div>
+            </div>
+            <button id="apply-filters" class="btn btn-primary mt-3">套用篩選</button>
+        </div>
     </aside>
 
     <main class="main-content">
         <div class="section">
             <div class="container">
-                <div class="container-fluid">
-                    <div class="row">
-                        @foreach (var product in Model.Products.Take(9))
-                        {
-                            <div class="col-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="@((Model.Products.IndexOf(product) + 1) * 100)">
-                                <div class="media-entry">
-                                    <a href="@Url.Action("Details", new { id = product.Id })">
-                                        <img src="@product.ImageUrl" alt="@product.Name" class="img-fluid">
-                                    </a>
-                                    <div class="bg-white m-body">
-                                        <span class="date">@product.Date.ToString("MMM dd, yyyy")</span>
-                                        <h3><a href="@Url.Action("Details", new { id = product.Id })">@product.Name</a></h3>
-                                        <p>@product.Description</p>
-                                        <a href="@Url.Action("Details", new { id = product.Id })" class="more d-flex align-items-center float-start">
-                                            <span class="label">Read More</span>
-                                            <span class="arrow"><span class="icon-keyboard_arrow_right"></span></span>
-                                        </a>
+
+                <div class="row">
+                    @foreach (var trail in Model)
+                    {
+                        <div class="col-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="@((Model.IndexOf(trail) + 1) * 100)">
+                            <div class="media-entry">
+                                <a href="@Url.Action("Details", new { id = trail.ID })">
+                                    <img src="~/images/mountain-placeholder.jpg" alt="@trail.mt_name" class="img-fluid">
+                                </a>
+                                <div class="bg-white m-body">
+                                    <span class="date">@trail.region</span>
+                                    <h3><a href="@Url.Action("Details", new { id = trail.ID })">@trail.mt_name</a></h3>
+                                    <p>
+                                        位置：@trail.location<br>
+                                        難度：@trail.diff 級<br>
+                                        距離：@trail.dist_km km<br>
+                                        預計時間：@(trail.time_min / 60)小時@(trail.time_min % 60)分鐘
+                                    </p>
+                                    <div class="trail-info">
+                                        <small class="text-muted">
+                                            @if (trail.park_permit == 1)
+                                            {
+                                                <span class="badge bg-warning text-dark me-1">需入園證</span>
+                                            }
+                                            @if (trail.mt_permit == 1)
+                                            {
+                                                <span class="badge bg-danger me-1">需入山證</span>
+                                            }
+                                            <span class="badge bg-info">@trail.badge</span>
+                                        </small>
                                     </div>
+                                    <a href="@Url.Action("Details", new { id = trail.ID })" class="more d-flex align-items-center float-start mt-2">
+                                        <span class="label">查看詳情</span>
+                                        <span class="arrow"><span class="icon-keyboard_arrow_right"></span></span>
+                                    </a>
                                 </div>
                             </div>
-                        }
-                    </div>
+                        </div>
+                    }
                 </div>
-
-                <div class="row align-items-stretch">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="media-entry">
-                            <a href="index.html">
-                                <img src="/images/gal_1.jpg" alt="Image" class="img-fluid">
-                            </a>
-                            <div class="bg-white m-body">
-                                <span class="date">May 14, 2020</span>
-                                <h3><a href="index.html">Far far away, behind the word mountains</a></h3>
-                                <p>Vokalia and Consonantia, there live the blind texts. Separated they live.</p>
-
-                                <a href="single.html" class="more d-flex align-items-center float-start">
-                                    <span class="label">Read More</span>
-                                    <span class="arrow"><span class="icon-keyboard_arrow_right"></span></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="200">
-                        <div class="media-entry">
-                            <a href="index.html">
-                                <img src="/images/gal_2.jpg" alt="Image" class="img-fluid">
-                            </a>
-                            <div class="bg-white m-body">
-                                <span class="date">May 14, 2020</span>
-                                <h3><a href="index.html">Far far away, behind the word mountains</a></h3>
-                                <p>Vokalia and Consonantia, there live the blind texts. Separated they live.</p>
-
-                                <a href="single.html" class="more d-flex align-items-center float-start">
-                                    <span class="label">Read More</span>
-                                    <span class="arrow"><span class="icon-keyboard_arrow_right"></span></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="300">
-                        <div class="media-entry">
-                            <a href="index.html">
-                                <img src="/images/gal_3.jpg" alt="Image" class="img-fluid">
-                            </a>
-                            <div class="bg-white m-body">
-                                <span class="date">May 14, 2020</span>
-                                <h3><a href="index.html">Far far away, behind the word mountains</a></h3>
-                                <p>Vokalia and Consonantia, there live the blind texts. Separated they live.</p>
-                                <a href="single.html" class="more d-flex align-items-center float-start">
-                                    <span class="label">Read More</span>
-                                    <span class="arrow"><span class="icon-keyboard_arrow_right"></span></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="400">
-                        <div class="media-entry">
-                            <a href="index.html">
-                                <img src="/images/gal_4.jpg" alt="Image" class="img-fluid">
-                            </a>
-                            <div class="bg-white m-body">
-                                <span class="date">May 14, 2020</span>
-                                <h3><a href="index.html">Far far away, behind the word mountains</a></h3>
-                                <p>Vokalia and Consonantia, there live the blind texts. Separated they live.</p>
-                                <a href="single.html" class="more d-flex align-items-center float-start">
-                                    <span class="label">Read More</span>
-                                    <span class="arrow"><span class="icon-keyboard_arrow_right"></span></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="media-entry">
-                            <a href="index.html">
-                                <img src="/images/gal_1.jpg" alt="Image" class="img-fluid">
-                            </a>
-                            <div class="bg-white m-body">
-                                <span class="date">May 14, 2020</span>
-                                <h3><a href="index.html">Far far away, behind the word mountains</a></h3>
-                                <p>Vokalia and Consonantia, there live the blind texts. Separated they live.</p>
-
-                                <a href="single.html" class="more d-flex align-items-center float-start">
-                                    <span class="label">Read More</span>
-                                    <span class="arrow"><span class="icon-keyboard_arrow_right"></span></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="200">
-                        <div class="media-entry">
-                            <a href="index.html">
-                                <img src="/images/gal_2.jpg" alt="Image" class="img-fluid">
-                            </a>
-                            <div class="bg-white m-body">
-                                <span class="date">May 14, 2020</span>
-                                <h3><a href="index.html">Far far away, behind the word mountains</a></h3>
-                                <p>Vokalia and Consonantia, there live the blind texts. Separated they live.</p>
-
-                                <a href="single.html" class="more d-flex align-items-center float-start">
-                                    <span class="label">Read More</span>
-                                    <span class="arrow"><span class="icon-keyboard_arrow_right"></span></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="300">
-                        <div class="media-entry">
-                            <a href="index.html">
-                                <img src="/images/gal_3.jpg" alt="Image" class="img-fluid">
-                            </a>
-                            <div class="bg-white m-body">
-                                <span class="date">May 14, 2020</span>
-                                <h3><a href="index.html">Far far away, behind the word mountains</a></h3>
-                                <p>Vokalia and Consonantia, there live the blind texts. Separated they live.</p>
-                                <a href="single.html" class="more d-flex align-items-center float-start">
-                                    <span class="label">Read More</span>
-                                    <span class="arrow"><span class="icon-keyboard_arrow_right"></span></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="400">
-                        <div class="media-entry">
-                            <a href="index.html">
-                                <img src="/images/gal_4.jpg" alt="Image" class="img-fluid">
-                            </a>
-                            <div class="bg-white m-body">
-                                <span class="date">May 14, 2020</span>
-                                <h3><a href="index.html">Far far away, behind the word mountains</a></h3>
-                                <p>Vokalia and Consonantia, there live the blind texts. Separated they live.</p>
-                                <a href="single.html" class="more d-flex align-items-center float-start">
-                                    <span class="label">Read More</span>
-                                    <span class="arrow"><span class="icon-keyboard_arrow_right"></span></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <nav class="mt-5" aria-label="Page navigation example" data-aos="fade-up" data-aos-delay="100">
-                        <ul class="custom-pagination pagination">
-                            <li class="page-item prev"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item next"><a class="page-link" href="#">Next</a></li>
-                        </ul>
-                    </nav>
-                </div>
+                <nav class="mt-5" aria-label="Page navigation example" data-aos="fade-up" data-aos-delay="100">
+                    <ul class="custom-pagination pagination">
+                        <li class="page-item prev"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item next"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </nav>
             </div>
+
         </div>
     </main>
 </div>

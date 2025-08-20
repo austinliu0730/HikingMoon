@@ -23,9 +23,6 @@ namespace GoHiking.Controllers
                 OrderBy(x => x.ID).
                 Take(9).
                 ToList();
-
-
-
             return View(mountainTrails);
         }
 
